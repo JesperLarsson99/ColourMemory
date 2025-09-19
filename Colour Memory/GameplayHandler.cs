@@ -14,7 +14,7 @@ internal class GameplayHandler(Form1 form)
     {
         var colors = GameSetup.SetupCardColors();
 
-        CardColors = GameSetup.MatchCardsWithColors(colors, form);
+        CardColors = GameSetup.MatchCardsWithColors(colors, form.Cards);
     }
 
     internal void OnCardClick(object? sender, EventArgs e)

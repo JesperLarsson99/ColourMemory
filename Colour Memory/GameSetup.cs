@@ -1,19 +1,19 @@
 ﻿namespace Colour_Memory;
-internal static class GameSetup
+public static class GameSetup
 {
-    internal static Dictionary<Button, Color> MatchCardsWithColors(List<Color> colors, Form1 form)
+    public static Dictionary<Button, Color> MatchCardsWithColors(List<Color> colors, List<Button> cards)
     {
         var cardColors = new Dictionary<Button, Color>();
 
-        for (int i = 0; i < form.Cards.Count; i++)
+        for (int i = 0; i < cards.Count; i++)
         {
-            cardColors.Add(form.Cards[i], colors[i]);
+            cardColors.Add(cards[i], colors[i]);
         }
 
         return cardColors;
     }
 
-    internal static List<Color> SetupCardColors()
+    public static List<Color> SetupCardColors()
     {
         var random = new Random();
 
