@@ -45,6 +45,8 @@
             card15 = new Button();
             card16 = new Button();
             pointsLabel = new Label();
+            pictureBox1 = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // card1
@@ -216,12 +218,22 @@
             pointsLabel.TabIndex = 16;
             pointsLabel.Text = "Poäng: 0";
             // 
+            // pictureBox1
+            // 
+            pictureBox1.BackgroundImage = Properties.Resources.ColourMemory;
+            pictureBox1.Location = new Point(634, 429);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(169, 89);
+            pictureBox1.TabIndex = 17;
+            pictureBox1.TabStop = false;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(826, 552);
+            Controls.Add(pictureBox1);
             Controls.Add(pointsLabel);
             Controls.Add(card16);
             Controls.Add(card15);
@@ -241,6 +253,7 @@
             Controls.Add(card1);
             Name = "Form1";
             Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -264,5 +277,6 @@
         private Button card15;
         private Button card16;
         private Label pointsLabel;
+        private PictureBox pictureBox1;
     }
 }
