@@ -44,6 +44,7 @@
             card14 = new Button();
             card15 = new Button();
             card16 = new Button();
+            pointsLabel = new Label();
             SuspendLayout();
             // 
             // card1
@@ -206,12 +207,22 @@
             card16.TabIndex = 15;
             card16.UseVisualStyleBackColor = false;
             // 
+            // pointsLabel
+            // 
+            pointsLabel.AutoSize = true;
+            pointsLabel.Location = new Point(316, 9);
+            pointsLabel.Name = "pointsLabel";
+            pointsLabel.Size = new Size(53, 15);
+            pointsLabel.TabIndex = 16;
+            pointsLabel.Text = "Poäng: 0";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(826, 552);
+            Controls.Add(pointsLabel);
             Controls.Add(card16);
             Controls.Add(card15);
             Controls.Add(card14);
@@ -231,6 +242,7 @@
             Name = "Form1";
             Text = "Form1";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -251,5 +263,6 @@
         private Button card14;
         private Button card15;
         private Button card16;
+        private Label pointsLabel;
     }
 }

@@ -3,12 +3,15 @@ namespace Colour_Memory
     public partial class Form1 : Form
     {
         public List<Button> Cards = new List<Button>();
+        public Label PointsLabel;
 
         public Form1()
         {
             InitializeComponent();
 
             Cards = SetupCards();
+
+            PointsLabel = pointsLabel;
 
             var gameplayHandler = new GameplayHandler(this);
 

@@ -1,10 +1,14 @@
-﻿namespace Colour_Memory;
+﻿using Timer = System.Windows.Forms.Timer;
+
+namespace Colour_Memory;
 internal class GameplayHandler(Form1 form)
 {
     internal Dictionary<Button, Color> CardColors = new Dictionary<Button, Color>();
     internal List<Button> ClickedCards = new List<Button>();
 
     private bool allowedToClick = true;
+
+    private int points = 0;
 
     internal void StartGame()
     {
@@ -34,7 +38,7 @@ internal class GameplayHandler(Form1 form)
         {
             allowedToClick = false;
             
-            var timer = new System.Windows.Forms.Timer();
+            var timer = new Timer();
             timer.Interval = 2000;
 
             timer.Tick += (s, args) =>
@@ -44,20 +48,22 @@ internal class GameplayHandler(Form1 form)
                 if (ClickedCards[0].BackColor == ClickedCards[1].BackColor)
                 {
                     ClickedCards.ForEach(card => card.Visible = false);
+                    points++;
                 }
                 else 
                 {
-                    ClickedCards.ForEach(card => card.Image = Properties.Resources.background);
-
                     foreach (var card in ClickedCards)
                     {
                         card.Image = Properties.Resources.background;
                         card.Enabled = true;
                     }
+                    points--;
                 }
 
                 ClickedCards.Clear();
                 allowedToClick = true;
+
+                form.PointsLabel.Text = "Poäng: " + points;
             };
 
             timer.Start();
