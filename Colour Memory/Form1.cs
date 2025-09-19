@@ -1,49 +1,106 @@
-namespace Colour_Memory
+namespace Colour_Memory;
+
+public partial class Form1 : Form
 {
-    public partial class Form1 : Form
+    private List<Button> Cards = new List<Button>();
+    private Dictionary<Button, Color> CardColors = new Dictionary<Button, Color>();
+    public List<Button> ClickedCards { get; private set; } = new List<Button>();
+
+    private GameplayHelper gameplayHandler;
+
+    private bool allowedToClick = true;
+
+    public Form1()
     {
-        public List<Button> Cards = new List<Button>();
-        public Label PointsLabel;
+        InitializeComponent();
 
-        public Form1()
+        Cards = SetupCards();
+
+        gameplayHandler = new GameplayHelper();
+
+        SetupGame();
+
+        foreach (var card in Cards)
         {
-            InitializeComponent();
+            card.Click += OnCardClick;
+        }
+    }
 
-            Cards = SetupCards();
+    private async void OnCardClick(object? sender, EventArgs e)
+    {
+        if (!allowedToClick)
+        {
+            return;
+        }
 
-            PointsLabel = pointsLabel;
+        var clickedCard = sender as Button;
 
-            var gameplayHandler = new GameplayHandler(this);
+        if (clickedCard != null)
+        {
+            ChangeAppearanceOfClickedCard(clickedCard);
+            ClickedCards.Add(clickedCard);
+        }
 
-            gameplayHandler.StartGame();
+        if (ClickedCards.Count == 2)
+        {
+            allowedToClick = false;
 
-            foreach (var card in Cards)
+            var matched = await gameplayHandler.HandleTwoCardsClickedAsync(ClickedCards[0], ClickedCards[1]);
+
+            if (matched)
             {
-                card.Click += gameplayHandler.OnCardClick;
+                ClickedCards.ForEach(card => card.Visible = false);
             }
-        }
-
-        private List<Button> SetupCards()
-        {
-            return new List<Button>()
+            else
             {
-                card1,
-                card2,
-                card3,
-                card4,
-                card5,
-                card6,
-                card7,
-                card8,
-                card9,
-                card10,
-                card11,
-                card12,
-                card13,
-                card14,
-                card15,
-                card16
-            };
+                foreach (var card in ClickedCards)
+                {
+                    card.Image = Properties.Resources.background;
+                    card.Enabled = true;
+                }
+            }
+
+            ClickedCards.Clear();
+            allowedToClick = true;
+
+            pointsLabel.Text = "Poäng: " + gameplayHandler.Points;
         }
+    }
+
+    private void ChangeAppearanceOfClickedCard(Button clickedCard)
+    {
+        clickedCard.BackColor = CardColors[clickedCard];
+        clickedCard.Image = null;
+        clickedCard.Enabled = false;
+    }
+
+    private List<Button> SetupCards()
+    {
+        return new List<Button>()
+        {
+            card1,
+            card2,
+            card3,
+            card4,
+            card5,
+            card6,
+            card7,
+            card8,
+            card9,
+            card10,
+            card11,
+            card12,
+            card13,
+            card14,
+            card15,
+            card16
+        };
+    }
+
+    private void SetupGame()
+    {
+        var colors = GameSetup.SetupCardColors();
+
+        CardColors = GameSetup.MatchCardsWithColors(colors, Cards);
     }
 }
