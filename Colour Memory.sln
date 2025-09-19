@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36429.23 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Colour Memory", "Colour Memory\Colour Memory.csproj", "{FCE73DC0-C784-44CD-A8E1-C0A40144BE8D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FCE73DC0-C784-44CD-A8E1-C0A40144BE8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCE73DC0-C784-44CD-A8E1-C0A40144BE8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCE73DC0-C784-44CD-A8E1-C0A40144BE8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCE73DC0-C784-44CD-A8E1-C0A40144BE8D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DEA008F9-4719-4CAF-8FEC-4EC8AC1F3299}
+	EndGlobalSection
+EndGlobal
