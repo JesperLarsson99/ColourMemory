@@ -4,7 +4,7 @@ public partial class Form1 : Form
 {
     private List<Button> Cards = new List<Button>();
     private Dictionary<Button, Color> CardColors = new Dictionary<Button, Color>();
-    public List<Button> ClickedCards { get; private set; } = new List<Button>();
+    public List<Button> ClickedCards = new List<Button>();
 
     private GameplayHelper gameplayHandler;
 
