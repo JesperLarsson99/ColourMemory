@@ -1,3 +1,5 @@
+using System.Reflection.Metadata.Ecma335;
+
 namespace Colour_Memory;
 
 public partial class Form1 : Form
@@ -9,8 +11,6 @@ public partial class Form1 : Form
     private GameplayService gameplayHandler;
 
     private bool allowedToClick = true;
-
-    private bool allCardsClicked = false;
 
     public Form1()
     {
@@ -68,18 +68,7 @@ public partial class Form1 : Form
             pointsLabel.Text = "Poäng: " + gameplayHandler.Points;
         }
 
-        foreach (var card in Cards)
-        {
-            if (card.Visible)
-            {
-                allCardsClicked = false;
-                return;
-            }
-
-            allCardsClicked = true;
-        }
-
-        if (allCardsClicked)
+        if (!Cards.Any(card => card.Visible))
         {
             ResetGame();
         }
