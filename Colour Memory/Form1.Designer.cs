@@ -48,6 +48,7 @@
             pictureBox1 = new PictureBox();
             doneWithGameLabel = new Label();
             playAgainButton = new Button();
+            playerScoreListview = new ListView();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -251,12 +252,24 @@
             playAgainButton.Visible = false;
             playAgainButton.Click += playAgainButton_Click;
             // 
+            // playerScoreListview
+            // 
+            playerScoreListview.FullRowSelect = true;
+            playerScoreListview.GridLines = true;
+            playerScoreListview.Location = new Point(597, 52);
+            playerScoreListview.Name = "playerScoreListview";
+            playerScoreListview.Size = new Size(206, 139);
+            playerScoreListview.TabIndex = 20;
+            playerScoreListview.UseCompatibleStateImageBehavior = false;
+            playerScoreListview.View = View.Details;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(826, 552);
+            Controls.Add(playerScoreListview);
             Controls.Add(playAgainButton);
             Controls.Add(doneWithGameLabel);
             Controls.Add(pictureBox1);
@@ -306,5 +319,6 @@
         private PictureBox pictureBox1;
         private Label doneWithGameLabel;
         private Button playAgainButton;
+        private ListView playerScoreListview;
     }
 }

@@ -20,7 +20,7 @@ public class GameplayHelperTests
             BackColor = Color.Blue
         };
 
-        var sut = new GameplayHelper();
+        var sut = new GameplayService();
 
         //Act & Assert
 
@@ -47,7 +47,7 @@ public class GameplayHelperTests
             BackColor = Color.Red
         };
 
-        var sut = new GameplayHelper();
+        var sut = new GameplayService();
 
         //Act & Assert
 

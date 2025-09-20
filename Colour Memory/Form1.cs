@@ -6,7 +6,7 @@ public partial class Form1 : Form
     private Dictionary<Button, Color> CardColors = new Dictionary<Button, Color>();
     public List<Button> ClickedCards = new List<Button>();
 
-    private GameplayHelper gameplayHandler;
+    private GameplayService gameplayHandler;
 
     private bool allowedToClick = true;
 
@@ -18,7 +18,7 @@ public partial class Form1 : Form
 
         Cards = SetupCards();
 
-        gameplayHandler = new GameplayHelper();
+        gameplayHandler = new GameplayService();
 
         SetupGame();
 
@@ -124,6 +124,14 @@ public partial class Form1 : Form
 
     private void SetupGame()
     {
+        var playerScoreList = gameplayHandler.GetPlayerScore();
+
+        playerScoreListview.Columns.Clear();
+        playerScoreListview.Columns.Add("Player Name", 100);
+        playerScoreListview.Columns.Add("Score", 50);
+
+        AddPlayerScoreListToListbox(playerScoreList);
+
         var colors = GameSetup.SetupCardColors();
 
         CardColors = GameSetup.MatchCardsWithColors(colors, Cards);
@@ -150,6 +158,18 @@ public partial class Form1 : Form
             card.Image = Properties.Resources.background;
             card.Enabled = true;
             card.Visible = true;
+        }
+    }
+
+    private void AddPlayerScoreListToListbox(List<Player> playerList)
+    {
+        playerScoreListview.Items.Clear();
+
+        foreach (var playerScore in playerList)
+        {
+            var listViewItem = new ListViewItem(playerScore.PlayerName);
+            listViewItem.SubItems.Add(playerScore.Score.ToString());
+            playerScoreListview.Items.Add(listViewItem);
         }
     }
 }
