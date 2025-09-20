@@ -140,6 +140,7 @@ public partial class Form1 : Form
         playAgainButton.Visible = false;
 
         pointsLabel.Text = "Poäng: " + gameplayHandler.Points;
+        doneWithGameLabel.Visible = false;
     }
 
     private void ResetAllCards()
