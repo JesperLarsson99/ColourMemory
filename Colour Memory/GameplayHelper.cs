@@ -22,4 +22,9 @@ public class GameplayHelper
 
         return matched;
     }
+
+    public void ResetPoints()
+    {
+        Points = 0;
+    }
 }

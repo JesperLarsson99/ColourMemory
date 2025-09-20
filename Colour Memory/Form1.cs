@@ -10,6 +10,8 @@ public partial class Form1 : Form
 
     private bool allowedToClick = true;
 
+    private bool allCardsClicked = false;
+
     public Form1()
     {
         InitializeComponent();
@@ -65,6 +67,29 @@ public partial class Form1 : Form
 
             pointsLabel.Text = "Poäng: " + gameplayHandler.Points;
         }
+
+        foreach (var card in Cards)
+        {
+            if (card.Visible)
+            {
+                allCardsClicked = false;
+                return;
+            }
+
+            allCardsClicked = true;
+        }
+
+        if (allCardsClicked)
+        {
+            ResetGame();
+        }
+    }
+
+    private void ResetGame()
+    {
+        doneWithGameLabel.Text = "Du är nu färdig med detta spel, dina poäng blev: " + gameplayHandler.Points;
+        doneWithGameLabel.Visible = true;
+        playAgainButton.Visible = true;
     }
 
     private void ChangeAppearanceOfClickedCard(Button clickedCard)
@@ -102,5 +127,28 @@ public partial class Form1 : Form
         var colors = GameSetup.SetupCardColors();
 
         CardColors = GameSetup.MatchCardsWithColors(colors, Cards);
+    }
+
+    private void playAgainButton_Click(object sender, EventArgs e)
+    {
+        gameplayHandler.ResetPoints();
+
+        SetupGame();
+
+        ResetAllCards();
+
+        playAgainButton.Visible = false;
+
+        pointsLabel.Text = "Poäng: " + gameplayHandler.Points;
+    }
+
+    private void ResetAllCards()
+    {
+        foreach (var card in Cards)
+        {
+            card.Image = Properties.Resources.background;
+            card.Enabled = true;
+            card.Visible = true;
+        }
     }
 }

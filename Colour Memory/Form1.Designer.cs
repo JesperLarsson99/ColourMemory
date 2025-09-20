@@ -46,6 +46,8 @@
             card16 = new Button();
             pointsLabel = new Label();
             pictureBox1 = new PictureBox();
+            doneWithGameLabel = new Label();
+            playAgainButton = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -227,12 +229,36 @@
             pictureBox1.TabIndex = 17;
             pictureBox1.TabStop = false;
             // 
+            // doneWithGameLabel
+            // 
+            doneWithGameLabel.AutoSize = true;
+            doneWithGameLabel.Font = new Font("Segoe UI", 16F);
+            doneWithGameLabel.Location = new Point(97, 167);
+            doneWithGameLabel.Name = "doneWithGameLabel";
+            doneWithGameLabel.Size = new Size(481, 30);
+            doneWithGameLabel.TabIndex = 18;
+            doneWithGameLabel.Text = "Du är nu färdig med detta spel, dina poäng blev:";
+            doneWithGameLabel.Visible = false;
+            // 
+            // playAgainButton
+            // 
+            playAgainButton.Location = new Point(294, 278);
+            playAgainButton.Name = "playAgainButton";
+            playAgainButton.Size = new Size(75, 23);
+            playAgainButton.TabIndex = 19;
+            playAgainButton.Text = "Spela igen";
+            playAgainButton.UseVisualStyleBackColor = true;
+            playAgainButton.Visible = false;
+            playAgainButton.Click += playAgainButton_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(826, 552);
+            Controls.Add(playAgainButton);
+            Controls.Add(doneWithGameLabel);
             Controls.Add(pictureBox1);
             Controls.Add(pointsLabel);
             Controls.Add(card16);
@@ -278,5 +304,7 @@
         private Button card16;
         private Label pointsLabel;
         private PictureBox pictureBox1;
+        private Label doneWithGameLabel;
+        private Button playAgainButton;
     }
 }
