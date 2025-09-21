@@ -1,11 +1,11 @@
-﻿namespace Colour_Memory;
+﻿namespace ColourMemory;
 public static class GameSetup
 {
-    public static Dictionary<Button, Color> MatchCardsWithColors(List<Color> colors, List<Button> cards)
+    public static Dictionary<Button, Color> MatchCardsWithColors(List<Color> colors, Button[] cards)
     {
         var cardColors = new Dictionary<Button, Color>();
 
-        for (int i = 0; i < cards.Count; i++)
+        for (int i = 0; i < cards.Length; i++)
         {
             cardColors.Add(cards[i], colors[i]);
         }
@@ -15,7 +15,8 @@ public static class GameSetup
 
     public static List<Color> SetupCardColors()
     {
-        var random = new Random();
+        var randomGuid = new Guid().GetHashCode();
+        var random = new Random(randomGuid);
 
         var colors = new List<Color>()
         {

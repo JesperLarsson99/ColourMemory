@@ -1,4 +1,4 @@
-﻿namespace Colour_Memory;
+﻿namespace ColourMemory;
 public interface IGameplayService
 {
     Task<bool> HandleTwoCardsClickedAsync(Button clickedButton1, Button clickedButton2);

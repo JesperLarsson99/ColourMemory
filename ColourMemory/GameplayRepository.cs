@@ -1,9 +1,9 @@
 ﻿using System.Data.SQLite;
 
-namespace Colour_Memory;
+namespace ColourMemory;
 public class GameplayRepository : IGameplayRepository
 {
-    string dbPath = $"Data Source={Path.Combine(Application.StartupPath, "colourmemory.db")}";
+    private readonly string dbPath = $"Data Source={Path.Combine(Application.StartupPath, "colourmemory.db")}";
 
     public void SaveScore(Player player)
     {
@@ -33,8 +33,8 @@ public class GameplayRepository : IGameplayRepository
             {
                 while (reader.Read())
                 {
-                    var player = new Player();
-                    player.PlayerName = reader["PlayerName"].ToString()!;
+                    var player = new Player(reader["PlayerName"].ToString()!);
+                    //player.PlayerName = reader["PlayerName"].ToString()!;
                     player.Score = int.Parse(reader["Score"].ToString()!);
                     playerList.Add(player);
                 }

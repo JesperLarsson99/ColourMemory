@@ -1,6 +1,6 @@
-﻿using Colour_Memory;
-using FluentAssertions;
+﻿using Microsoft.Extensions.Options;
 using NSubstitute;
+using Shouldly;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -22,18 +22,21 @@ public class GameplayServiceTests
         };
 
         var gameplayRepositorySubstitute = Substitute.For<IGameplayRepository>();
+        var gameConfigSubstitute = Substitute.For<IOptions<GameConfig>>();
 
-        var sut = new GameplayService(gameplayRepositorySubstitute);
+        gameConfigSubstitute.Value.WaitTimeMs.Returns(2000);
+
+        var sut = new GameplayService(gameplayRepositorySubstitute, gameConfigSubstitute);
 
         //Act & Assert
 
-        sut.GetPoints().Should().Be(0);
+        sut.GetPoints().ShouldBe(0);
 
         var matched = await sut.HandleTwoCardsClickedAsync(button1, button2);
 
-        matched.Should().BeTrue();
+        matched.ShouldBeTrue();
 
-        sut.GetPoints().Should().Be(1);
+        sut.GetPoints().ShouldBe(1);
     }
 
     [Fact]
@@ -51,17 +54,20 @@ public class GameplayServiceTests
         };
 
         var gameplayRepositorySubstitute = Substitute.For<IGameplayRepository>();
+        var gameConfigSubstitute = Substitute.For<IOptions<GameConfig>>();
 
-        var sut = new GameplayService(gameplayRepositorySubstitute);
+        gameConfigSubstitute.Value.WaitTimeMs.Returns(2000);
+
+        var sut = new GameplayService(gameplayRepositorySubstitute, gameConfigSubstitute);
 
         //Act & Assert
 
-        sut.GetPoints().Should().Be(0);
+        sut.GetPoints().ShouldBe(0);
 
         var matched = await sut.HandleTwoCardsClickedAsync(button1, button2);
 
-        matched.Should().BeFalse();
+        matched.ShouldBeFalse();
 
-        sut.GetPoints().Should().Be(-1);
+        sut.GetPoints().ShouldBe(-1);
     }
 }

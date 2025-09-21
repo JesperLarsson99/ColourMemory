@@ -1,26 +1,26 @@
-namespace Colour_Memory;
+namespace ColourMemory;
 
 public partial class MainForm : Form
 {
-    private List<Button> Cards = new List<Button>();
-    private Dictionary<Button, Color> CardColors = new Dictionary<Button, Color>();
-    public List<Button> ClickedCards = new List<Button>();
+    private readonly Button[] cards = [];
+    private IReadOnlyDictionary<Button, Color> cardsWithMatchingColors = new Dictionary<Button, Color>();
+    private readonly List<Button> clickedCards = [];
 
-    private IGameplayService _gameplayService;
+    private readonly IGameplayService _gameplayService;
 
     private bool allowedToClick = true;
 
-    Player? currentPlayer;
+    private Player? currentPlayer;
 
     public MainForm(IGameplayService gamePlayService)
     {
         InitializeComponent();
 
-        Cards = SetupCards();
+        cards = SetupCards();
 
         _gameplayService = gamePlayService;
 
-        foreach (var card in Cards)
+        foreach (var card in cards)
         {
             card.Click += OnCardClick;
         }
@@ -33,44 +33,46 @@ public partial class MainForm : Form
             return;
         }
 
-        var clickedCard = sender as Button;
-
-        if (clickedCard != null)
+        if (sender is Button clickedCard)
         {
             ChangeAppearanceOfClickedCard(clickedCard);
-            ClickedCards.Add(clickedCard);
+            clickedCards.Add(clickedCard);
         }
 
-        if (ClickedCards.Count == 2)
+        if (clickedCards.Count == 2)
         {
             allowedToClick = false;
 
-            var matched = await _gameplayService.HandleTwoCardsClickedAsync(ClickedCards[0], ClickedCards[1]);
+            var matched = await _gameplayService.HandleTwoCardsClickedAsync(clickedCards[0], clickedCards[1]);
 
             if (matched)
             {
-                ClickedCards.ForEach(card => card.Visible = false);
+                clickedCards.ForEach(card => card.Visible = false);
             }
             else
             {
-                foreach (var card in ClickedCards)
+                foreach (var card in clickedCards)
                 {
                     card.Image = Properties.Resources.background;
                     card.Enabled = true;
                 }
             }
 
-            ClickedCards.Clear();
+            clickedCards.Clear();
             allowedToClick = true;
 
             pointsLabel.Text = "Poäng: " + _gameplayService.GetPoints();
         }
 
-        if (!Cards.Any(card => card.Visible))
+        if (!cards.Any(card => card.Visible))
         {
             currentPlayer!.Score = _gameplayService.GetPoints();
             _gameplayService.SaveScore(currentPlayer);
             ResetGame();
+
+            var playerScoreList = _gameplayService.GetHighscoreList();
+
+            AddPlayerScoreListToListbox(playerScoreList);
         }
     }
 
@@ -83,15 +85,15 @@ public partial class MainForm : Form
 
     private void ChangeAppearanceOfClickedCard(Button clickedCard)
     {
-        clickedCard.BackColor = CardColors[clickedCard];
+        clickedCard.BackColor = cardsWithMatchingColors[clickedCard];
         clickedCard.Image = null;
         clickedCard.Enabled = false;
     }
 
-    private List<Button> SetupCards()
+    private Button[] SetupCards()
     {
-        return new List<Button>()
-        {
+        return
+        [
             card1,
             card2,
             card3,
@@ -108,25 +110,21 @@ public partial class MainForm : Form
             card14,
             card15,
             card16
-        };
+        ];
     }
 
     private void SetupGame()
     {
-        var playerScoreList = _gameplayService.GetHighscoreList();
-
         playerScoreListview.Columns.Clear();
         playerScoreListview.Columns.Add("Player Name", 100);
         playerScoreListview.Columns.Add("Score", 50);
 
-        AddPlayerScoreListToListbox(playerScoreList);
-
         var colors = GameSetup.SetupCardColors();
 
-        CardColors = GameSetup.MatchCardsWithColors(colors, Cards);
+        cardsWithMatchingColors = GameSetup.MatchCardsWithColors(colors, cards);
     }
 
-    private void playAgainButton_Click(object sender, EventArgs e)
+    private void PlayAgainButton_Click(object sender, EventArgs e)
     {
         playAgainButton.Visible = false;
 
@@ -139,7 +137,7 @@ public partial class MainForm : Form
 
     private void MakeCardsGameReady()
     {
-        foreach (var card in Cards)
+        foreach (var card in cards)
         {
             card.Image = Properties.Resources.background;
             card.Enabled = true;
@@ -159,17 +157,19 @@ public partial class MainForm : Form
         }
     }
 
-    private void startGameButton_Click(object sender, EventArgs e)
+    private void StartGameButton_Click(object sender, EventArgs e)
     {
         _gameplayService.ResetPoints();
 
         SetupGame();
         MakeCardsGameReady();
 
-        Cards.ForEach(card => card.Visible = true);
+        foreach (var card in cards)
+        {
+            card.Visible = true;
+        }
 
-        currentPlayer = new Player();
-        currentPlayer.PlayerName = playerNameTextbox.Text;
+        currentPlayer = new Player(playerNameTextbox.Text);
 
         playerNameLabel.Visible = false;
         startGameButton.Visible = false;

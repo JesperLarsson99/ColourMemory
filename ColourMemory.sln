@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36429.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Colour Memory", "Colour Memory\Colour Memory.csproj", "{FCE73DC0-C784-44CD-A8E1-C0A40144BE8D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColourMemory", "ColourMemory\ColourMemory.csproj", "{FCE73DC0-C784-44CD-A8E1-C0A40144BE8D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColourMemory.Unittests", "ColourMemory.Unittests\ColourMemory.Unittests.csproj", "{FFDD5820-5284-4F7C-A17F-DDF9012E4D58}"
 EndProject

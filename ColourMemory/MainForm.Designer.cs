@@ -1,4 +1,4 @@
-﻿namespace Colour_Memory
+﻿namespace ColourMemory
 {
     partial class MainForm
     {
@@ -269,7 +269,7 @@
             playAgainButton.Text = "Spela igen";
             playAgainButton.UseVisualStyleBackColor = true;
             playAgainButton.Visible = false;
-            playAgainButton.Click += playAgainButton_Click;
+            playAgainButton.Click += PlayAgainButton_Click;
             // 
             // playerScoreListview
             // 
@@ -306,9 +306,9 @@
             startGameButton.TabIndex = 23;
             startGameButton.Text = "Starta spelet";
             startGameButton.UseVisualStyleBackColor = true;
-            startGameButton.Click += startGameButton_Click;
+            startGameButton.Click += StartGameButton_Click;
             // 
-            // Form1
+            // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -338,7 +338,7 @@
             Controls.Add(card3);
             Controls.Add(card2);
             Controls.Add(card1);
-            Name = "Form1";
+            Name = "MainForm";
             Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);

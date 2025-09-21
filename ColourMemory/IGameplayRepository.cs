@@ -1,4 +1,4 @@
-﻿namespace Colour_Memory;
+﻿namespace ColourMemory;
 public interface IGameplayRepository
 {
     void SaveScore(Player player);

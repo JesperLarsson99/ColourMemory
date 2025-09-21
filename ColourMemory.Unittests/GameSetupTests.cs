@@ -1,5 +1,4 @@
-﻿using Colour_Memory;
-using FluentAssertions;
+﻿using Shouldly;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -15,8 +14,8 @@ public class GameSetupTests
         var distinctColors = listOfColors.Distinct();
 
         //Assert
-        listOfColors.Should().HaveCount(16);
-        distinctColors.Should().HaveCount(8);
+        listOfColors.Count.ShouldBe(16);
+        distinctColors.Count().ShouldBe(8);
     }
 
     [Fact]
@@ -31,24 +30,24 @@ public class GameSetupTests
             Color.Blue
         };
 
-        var buttons = new List<Button>()
-        {
-            new Button(),
-            new Button(),
-            new Button(),
-            new Button()
-        };
+        Button[] buttons =
+        [
+            new(),
+            new(),
+            new(),
+            new()
+        ];
 
         //Act
         Dictionary<Button, Color> cardColors = GameSetup.MatchCardsWithColors(listOfColors, buttons);
 
         //Assert
-        cardColors.Should().HaveCount(listOfColors.Count);
+        cardColors.Count.ShouldBe(listOfColors.Count);
 
         foreach (var card in cardColors) 
         {
-            card.Value.Should().BeOfType<Color>();
-            card.Key.Should().BeOfType<Button>();
+            card.Value.ShouldBeOfType<Color>();
+            card.Key.ShouldBeOfType<Button>();
         }
     }
 }
