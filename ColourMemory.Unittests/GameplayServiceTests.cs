@@ -1,10 +1,11 @@
 ﻿using Colour_Memory;
 using FluentAssertions;
+using NSubstitute;
 using System.Drawing;
 using System.Windows.Forms;
 
 namespace ColourMemory.Unittests;
-public class GameplayHelperTests
+public class GameplayServiceTests
 {
     [Fact]
     public async Task HandleTwoCardsClickedAsync_Should_Return_Matched_And_Increase_Points_If_Colors_Does_Match()
@@ -20,17 +21,19 @@ public class GameplayHelperTests
             BackColor = Color.Blue
         };
 
-        var sut = new GameplayService();
+        var gameplayRepositorySubstitute = Substitute.For<IGameplayRepository>();
+
+        var sut = new GameplayService(gameplayRepositorySubstitute);
 
         //Act & Assert
 
-        sut.Points.Should().Be(0);
+        sut.GetPoints().Should().Be(0);
 
         var matched = await sut.HandleTwoCardsClickedAsync(button1, button2);
 
         matched.Should().BeTrue();
 
-        sut.Points.Should().Be(1);
+        sut.GetPoints().Should().Be(1);
     }
 
     [Fact]
@@ -47,16 +50,18 @@ public class GameplayHelperTests
             BackColor = Color.Red
         };
 
-        var sut = new GameplayService();
+        var gameplayRepositorySubstitute = Substitute.For<IGameplayRepository>();
+
+        var sut = new GameplayService(gameplayRepositorySubstitute);
 
         //Act & Assert
 
-        sut.Points.Should().Be(0);
+        sut.GetPoints().Should().Be(0);
 
         var matched = await sut.HandleTwoCardsClickedAsync(button1, button2);
 
         matched.Should().BeFalse();
 
-        sut.Points.Should().Be(-1);
+        sut.GetPoints().Should().Be(-1);
     }
 }
