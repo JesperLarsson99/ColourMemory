@@ -5,7 +5,7 @@ public class GameplayRepository
 {
     string dbPath = $"Data Source={Path.Combine(Application.StartupPath, "colourmemory.db")}";
 
-    public void SaveScore(string name, int score)
+    public void SaveScore(Player player)
     {
         using (var conn = new SQLiteConnection(dbPath))
         {
@@ -13,8 +13,8 @@ public class GameplayRepository
             string sql = "INSERT INTO Player (PlayerName, Score) VALUES (@name, @score)";
             using (var cmd = new SQLiteCommand(sql, conn))
             {
-                cmd.Parameters.AddWithValue("@name", name);
-                cmd.Parameters.AddWithValue("@score", score);
+                cmd.Parameters.AddWithValue("@name", player.PlayerName);
+                cmd.Parameters.AddWithValue("@score", player.Score);
                 cmd.ExecuteNonQuery();
             }
         }

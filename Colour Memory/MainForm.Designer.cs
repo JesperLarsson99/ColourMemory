@@ -1,6 +1,6 @@
 ﻿namespace Colour_Memory
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -49,6 +49,9 @@
             doneWithGameLabel = new Label();
             playAgainButton = new Button();
             playerScoreListview = new ListView();
+            playerNameTextbox = new TextBox();
+            playerNameLabel = new Label();
+            startGameButton = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -61,6 +64,7 @@
             card1.Size = new Size(80, 112);
             card1.TabIndex = 0;
             card1.UseVisualStyleBackColor = false;
+            card1.Visible = false;
             // 
             // card2
             // 
@@ -71,6 +75,7 @@
             card2.Size = new Size(80, 112);
             card2.TabIndex = 1;
             card2.UseVisualStyleBackColor = false;
+            card2.Visible = false;
             // 
             // card3
             // 
@@ -81,6 +86,7 @@
             card3.Size = new Size(80, 112);
             card3.TabIndex = 2;
             card3.UseVisualStyleBackColor = false;
+            card3.Visible = false;
             // 
             // card4
             // 
@@ -91,6 +97,7 @@
             card4.Size = new Size(80, 112);
             card4.TabIndex = 3;
             card4.UseVisualStyleBackColor = false;
+            card4.Visible = false;
             // 
             // card5
             // 
@@ -101,6 +108,7 @@
             card5.Size = new Size(80, 112);
             card5.TabIndex = 4;
             card5.UseVisualStyleBackColor = false;
+            card5.Visible = false;
             // 
             // card6
             // 
@@ -111,6 +119,7 @@
             card6.Size = new Size(80, 112);
             card6.TabIndex = 5;
             card6.UseVisualStyleBackColor = false;
+            card6.Visible = false;
             // 
             // card7
             // 
@@ -121,6 +130,7 @@
             card7.Size = new Size(80, 112);
             card7.TabIndex = 6;
             card7.UseVisualStyleBackColor = false;
+            card7.Visible = false;
             // 
             // card8
             // 
@@ -131,6 +141,7 @@
             card8.Size = new Size(80, 112);
             card8.TabIndex = 7;
             card8.UseVisualStyleBackColor = false;
+            card8.Visible = false;
             // 
             // card9
             // 
@@ -141,6 +152,7 @@
             card9.Size = new Size(80, 112);
             card9.TabIndex = 8;
             card9.UseVisualStyleBackColor = false;
+            card9.Visible = false;
             // 
             // card10
             // 
@@ -151,6 +163,7 @@
             card10.Size = new Size(80, 112);
             card10.TabIndex = 9;
             card10.UseVisualStyleBackColor = false;
+            card10.Visible = false;
             // 
             // card11
             // 
@@ -161,6 +174,7 @@
             card11.Size = new Size(80, 112);
             card11.TabIndex = 10;
             card11.UseVisualStyleBackColor = false;
+            card11.Visible = false;
             // 
             // card12
             // 
@@ -171,6 +185,7 @@
             card12.Size = new Size(80, 112);
             card12.TabIndex = 11;
             card12.UseVisualStyleBackColor = false;
+            card12.Visible = false;
             // 
             // card13
             // 
@@ -181,6 +196,7 @@
             card13.Size = new Size(80, 112);
             card13.TabIndex = 12;
             card13.UseVisualStyleBackColor = false;
+            card13.Visible = false;
             // 
             // card14
             // 
@@ -191,6 +207,7 @@
             card14.Size = new Size(80, 112);
             card14.TabIndex = 13;
             card14.UseVisualStyleBackColor = false;
+            card14.Visible = false;
             // 
             // card15
             // 
@@ -201,6 +218,7 @@
             card15.Size = new Size(80, 112);
             card15.TabIndex = 14;
             card15.UseVisualStyleBackColor = false;
+            card15.Visible = false;
             // 
             // card16
             // 
@@ -211,6 +229,7 @@
             card16.Size = new Size(80, 112);
             card16.TabIndex = 15;
             card16.UseVisualStyleBackColor = false;
+            card16.Visible = false;
             // 
             // pointsLabel
             // 
@@ -234,7 +253,7 @@
             // 
             doneWithGameLabel.AutoSize = true;
             doneWithGameLabel.Font = new Font("Segoe UI", 16F);
-            doneWithGameLabel.Location = new Point(97, 167);
+            doneWithGameLabel.Location = new Point(76, 167);
             doneWithGameLabel.Name = "doneWithGameLabel";
             doneWithGameLabel.Size = new Size(481, 30);
             doneWithGameLabel.TabIndex = 18;
@@ -263,12 +282,41 @@
             playerScoreListview.UseCompatibleStateImageBehavior = false;
             playerScoreListview.View = View.Details;
             // 
+            // playerNameTextbox
+            // 
+            playerNameTextbox.Location = new Point(71, 20);
+            playerNameTextbox.Name = "playerNameTextbox";
+            playerNameTextbox.Size = new Size(100, 23);
+            playerNameTextbox.TabIndex = 21;
+            // 
+            // playerNameLabel
+            // 
+            playerNameLabel.AutoSize = true;
+            playerNameLabel.Location = new Point(5, 23);
+            playerNameLabel.Name = "playerNameLabel";
+            playerNameLabel.Size = new Size(60, 15);
+            playerNameLabel.TabIndex = 22;
+            playerNameLabel.Text = "Ditt namn";
+            // 
+            // startGameButton
+            // 
+            startGameButton.Location = new Point(36, 52);
+            startGameButton.Name = "startGameButton";
+            startGameButton.Size = new Size(88, 23);
+            startGameButton.TabIndex = 23;
+            startGameButton.Text = "Starta spelet";
+            startGameButton.UseVisualStyleBackColor = true;
+            startGameButton.Click += startGameButton_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(826, 552);
+            Controls.Add(startGameButton);
+            Controls.Add(playerNameLabel);
+            Controls.Add(playerNameTextbox);
             Controls.Add(playerScoreListview);
             Controls.Add(playAgainButton);
             Controls.Add(doneWithGameLabel);
@@ -320,5 +368,8 @@
         private Label doneWithGameLabel;
         private Button playAgainButton;
         private ListView playerScoreListview;
+        private TextBox playerNameTextbox;
+        private Label playerNameLabel;
+        private Button startGameButton;
     }
 }

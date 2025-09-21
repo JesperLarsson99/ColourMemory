@@ -29,9 +29,9 @@ public class GameplayService
         Points = 0;
     }
 
-    public void SaveScore(string name, int score)
+    public void SaveScore(Player player)
     {
-        gameplayRepository.SaveScore(name, score);
+        gameplayRepository.SaveScore(player);
     }
 
     public List<Player> GetPlayerScore()

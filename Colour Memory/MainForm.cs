@@ -1,26 +1,24 @@
-using System.Reflection.Metadata.Ecma335;
-
 namespace Colour_Memory;
 
-public partial class Form1 : Form
+public partial class MainForm : Form
 {
     private List<Button> Cards = new List<Button>();
     private Dictionary<Button, Color> CardColors = new Dictionary<Button, Color>();
     public List<Button> ClickedCards = new List<Button>();
 
-    private GameplayService gameplayHandler;
+    private GameplayService gameplayService;
 
     private bool allowedToClick = true;
 
-    public Form1()
+    Player? currentPlayer;
+
+    public MainForm()
     {
         InitializeComponent();
 
         Cards = SetupCards();
 
-        gameplayHandler = new GameplayService();
-
-        SetupGame();
+        gameplayService = new GameplayService();
 
         foreach (var card in Cards)
         {
@@ -47,7 +45,7 @@ public partial class Form1 : Form
         {
             allowedToClick = false;
 
-            var matched = await gameplayHandler.HandleTwoCardsClickedAsync(ClickedCards[0], ClickedCards[1]);
+            var matched = await gameplayService.HandleTwoCardsClickedAsync(ClickedCards[0], ClickedCards[1]);
 
             if (matched)
             {
@@ -65,18 +63,20 @@ public partial class Form1 : Form
             ClickedCards.Clear();
             allowedToClick = true;
 
-            pointsLabel.Text = "Poäng: " + gameplayHandler.Points;
+            pointsLabel.Text = "Poäng: " + gameplayService.Points;
         }
 
         if (!Cards.Any(card => card.Visible))
         {
+            currentPlayer!.Score = gameplayService.Points;
+            gameplayService.SaveScore(currentPlayer);
             ResetGame();
         }
     }
 
     private void ResetGame()
     {
-        doneWithGameLabel.Text = "Du är nu färdig med detta spel, dina poäng blev: " + gameplayHandler.Points;
+        doneWithGameLabel.Text = "Du är nu färdig med detta spel, dina poäng blev: " + gameplayService.Points;
         doneWithGameLabel.Visible = true;
         playAgainButton.Visible = true;
     }
@@ -113,7 +113,7 @@ public partial class Form1 : Form
 
     private void SetupGame()
     {
-        var playerScoreList = gameplayHandler.GetPlayerScore();
+        var playerScoreList = gameplayService.GetPlayerScore();
 
         playerScoreListview.Columns.Clear();
         playerScoreListview.Columns.Add("Player Name", 100);
@@ -128,19 +128,16 @@ public partial class Form1 : Form
 
     private void playAgainButton_Click(object sender, EventArgs e)
     {
-        gameplayHandler.ResetPoints();
-
-        SetupGame();
-
-        ResetAllCards();
-
         playAgainButton.Visible = false;
 
-        pointsLabel.Text = "Poäng: " + gameplayHandler.Points;
         doneWithGameLabel.Visible = false;
+
+        playerNameLabel.Visible = true;
+        startGameButton.Visible = true;
+        playerNameTextbox.Visible = true;
     }
 
-    private void ResetAllCards()
+    private void MakeCardsGameReady()
     {
         foreach (var card in Cards)
         {
@@ -160,5 +157,23 @@ public partial class Form1 : Form
             listViewItem.SubItems.Add(playerScore.Score.ToString());
             playerScoreListview.Items.Add(listViewItem);
         }
+    }
+
+    private void startGameButton_Click(object sender, EventArgs e)
+    {
+        gameplayService.ResetPoints();
+
+        SetupGame();
+        MakeCardsGameReady();
+
+        Cards.ForEach(card => card.Visible = true);
+
+        currentPlayer = new Player();
+        currentPlayer.PlayerName = playerNameTextbox.Text;
+
+        playerNameLabel.Visible = false;
+        startGameButton.Visible = false;
+        playerNameTextbox.Visible = false;
+        pointsLabel.Text = "Poäng: " + gameplayService.Points;
     }
 }
