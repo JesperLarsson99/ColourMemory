@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -22,6 +23,11 @@ internal static class Program
         .ConfigureServices((context, services) =>
         {
             services.Configure<GameConfig>(context.Configuration);
+            var config = context.Configuration.Get<GameConfig>();
+
+            ArgumentNullException.ThrowIfNull(config);
+
+            services.AddSingleton(config);
             services.AddSingleton<MainForm>();
             services.AddSingleton<IGameplayService, GameplayService>();
             services.AddSingleton<IGameplayRepository, GameplayRepository>();

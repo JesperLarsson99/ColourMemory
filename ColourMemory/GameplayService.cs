@@ -1,16 +1,14 @@
-﻿using Microsoft.Extensions.Options;
-
-namespace ColourMemory;
+﻿namespace ColourMemory;
 public class GameplayService(
     IGameplayRepository gameplayRepository,
-    IOptions<GameConfig> gameConfig) : IGameplayService
+    GameConfig gameConfig) : IGameplayService
 {
 
     private int points = 0;
 
     public async Task<bool> HandleTwoCardsClickedAsync(Button clickedCard1, Button clickedCard2)
     {
-        await Task.Delay(gameConfig.Value.WaitTimeMs);
+        await Task.Delay(gameConfig.WaitTimeMs);
 
         if (clickedCard1.BackColor == clickedCard2.BackColor)
         {
