@@ -24,6 +24,11 @@ public partial class MainForm : Form
         {
             card.Click += OnCardClick;
         }
+
+        playerScoreListview.Columns.Add("Player Name", 100);
+        playerScoreListview.Columns.Add("Score", 50);
+
+        UpdateHighScoreListview();
     }
 
     private async void OnCardClick(object? sender, EventArgs e)
@@ -70,9 +75,7 @@ public partial class MainForm : Form
             _gameplayService.SaveScore(currentPlayer);
             ResetGame();
 
-            var playerScoreList = _gameplayService.GetHighscoreList();
-
-            AddPlayerScoreListToListbox(playerScoreList);
+            UpdateHighScoreListview();
         }
     }
 
@@ -88,6 +91,13 @@ public partial class MainForm : Form
         clickedCard.BackColor = cardsWithMatchingColors[clickedCard];
         clickedCard.Image = null;
         clickedCard.Enabled = false;
+    }
+
+    private void UpdateHighScoreListview()
+    {
+        var playerScoreList = _gameplayService.GetHighscoreList();
+
+        AddPlayerScoreListToListbox(playerScoreList);
     }
 
     private Button[] SetupCards()
@@ -115,10 +125,6 @@ public partial class MainForm : Form
 
     private void SetupGame()
     {
-        playerScoreListview.Columns.Clear();
-        playerScoreListview.Columns.Add("Player Name", 100);
-        playerScoreListview.Columns.Add("Score", 50);
-
         var colors = GameSetup.SetupCardColors();
 
         cardsWithMatchingColors = GameSetup.MatchCardsWithColors(colors, cards);
