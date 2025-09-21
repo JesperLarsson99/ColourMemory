@@ -1,7 +1,7 @@
 ﻿using System.Data.SQLite;
 
 namespace Colour_Memory;
-public class GameplayRepository
+public class GameplayRepository : IGameplayRepository
 {
     string dbPath = $"Data Source={Path.Combine(Application.StartupPath, "colourmemory.db")}";
 
@@ -20,7 +20,7 @@ public class GameplayRepository
         }
     }
 
-    public List<Player> GetPlayerScore()
+    public List<Player> GetHighscoreList()
     {
         var playerList = new List<Player>();
 

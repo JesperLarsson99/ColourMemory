@@ -6,19 +6,19 @@ public partial class MainForm : Form
     private Dictionary<Button, Color> CardColors = new Dictionary<Button, Color>();
     public List<Button> ClickedCards = new List<Button>();
 
-    private GameplayService gameplayService;
+    private IGameplayService _gameplayService;
 
     private bool allowedToClick = true;
 
     Player? currentPlayer;
 
-    public MainForm()
+    public MainForm(IGameplayService gamePlayService)
     {
         InitializeComponent();
 
         Cards = SetupCards();
 
-        gameplayService = new GameplayService();
+        _gameplayService = gamePlayService;
 
         foreach (var card in Cards)
         {
@@ -45,7 +45,7 @@ public partial class MainForm : Form
         {
             allowedToClick = false;
 
-            var matched = await gameplayService.HandleTwoCardsClickedAsync(ClickedCards[0], ClickedCards[1]);
+            var matched = await _gameplayService.HandleTwoCardsClickedAsync(ClickedCards[0], ClickedCards[1]);
 
             if (matched)
             {
@@ -63,20 +63,20 @@ public partial class MainForm : Form
             ClickedCards.Clear();
             allowedToClick = true;
 
-            pointsLabel.Text = "Poäng: " + gameplayService.Points;
+            pointsLabel.Text = "Poäng: " + _gameplayService.GetPoints();
         }
 
         if (!Cards.Any(card => card.Visible))
         {
-            currentPlayer!.Score = gameplayService.Points;
-            gameplayService.SaveScore(currentPlayer);
+            currentPlayer!.Score = _gameplayService.GetPoints();
+            _gameplayService.SaveScore(currentPlayer);
             ResetGame();
         }
     }
 
     private void ResetGame()
     {
-        doneWithGameLabel.Text = "Du är nu färdig med detta spel, dina poäng blev: " + gameplayService.Points;
+        doneWithGameLabel.Text = "Du är nu färdig med detta spel, dina poäng blev: " + _gameplayService.GetPoints();
         doneWithGameLabel.Visible = true;
         playAgainButton.Visible = true;
     }
@@ -113,7 +113,7 @@ public partial class MainForm : Form
 
     private void SetupGame()
     {
-        var playerScoreList = gameplayService.GetPlayerScore();
+        var playerScoreList = _gameplayService.GetHighscoreList();
 
         playerScoreListview.Columns.Clear();
         playerScoreListview.Columns.Add("Player Name", 100);
@@ -161,7 +161,7 @@ public partial class MainForm : Form
 
     private void startGameButton_Click(object sender, EventArgs e)
     {
-        gameplayService.ResetPoints();
+        _gameplayService.ResetPoints();
 
         SetupGame();
         MakeCardsGameReady();
@@ -174,6 +174,6 @@ public partial class MainForm : Form
         playerNameLabel.Visible = false;
         startGameButton.Visible = false;
         playerNameTextbox.Visible = false;
-        pointsLabel.Text = "Poäng: " + gameplayService.Points;
+        pointsLabel.Text = "Poäng: " + _gameplayService.GetPoints();
     }
 }

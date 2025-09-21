@@ -1,8 +1,10 @@
 ﻿namespace Colour_Memory;
-public class GameplayService
+public class GameplayService(
+    IGameplayRepository gameplayRepository) : IGameplayService
 {
-    GameplayRepository gameplayRepository = new GameplayRepository();
-    public int Points { get; private set; } = 0;
+    private readonly IGameplayRepository _gameplayRepository = gameplayRepository;
+
+    private int points = 0;
 
     public async Task<bool> HandleTwoCardsClickedAsync(Button clickedButton1, Button clickedButton2)
     {
@@ -13,12 +15,12 @@ public class GameplayService
         if (clickedButton1.BackColor == clickedButton2.BackColor)
         {
             matched = true;
-            Points++;
+            points++;
         }
         else 
         {
             matched = false;
-            Points--;
+            points--;
         }
 
         return matched;
@@ -26,16 +28,21 @@ public class GameplayService
 
     public void ResetPoints()
     {
-        Points = 0;
+        points = 0;
     }
 
     public void SaveScore(Player player)
     {
-        gameplayRepository.SaveScore(player);
+        _gameplayRepository.SaveScore(player);
     }
 
-    public List<Player> GetPlayerScore()
+    public List<Player> GetHighscoreList()
     {
-        return gameplayRepository.GetPlayerScore();
+        return _gameplayRepository.GetHighscoreList();
+    }
+
+    public int GetPoints()
+    {
+        return points;
     }
 }
