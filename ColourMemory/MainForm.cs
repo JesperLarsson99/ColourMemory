@@ -72,14 +72,16 @@ public partial class MainForm : Form
         if (!cards.Any(card => card.Visible))
         {
             currentPlayer!.Score = _gameplayService.GetPoints();
+
             _gameplayService.SaveScore(currentPlayer);
-            ResetGame();
+
+            ShowScoreAndPlayAgainButton();
 
             UpdateHighScoreListview();
         }
     }
 
-    private void ResetGame()
+    private void ShowScoreAndPlayAgainButton()
     {
         doneWithGameLabel.Text = "Du är nu färdig med detta spel, dina poäng blev: " + _gameplayService.GetPoints();
         doneWithGameLabel.Visible = true;

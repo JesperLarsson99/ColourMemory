@@ -1,7 +1,7 @@
 ﻿namespace ColourMemory;
 public interface IGameplayService
 {
-    Task<bool> HandleTwoCardsClickedAsync(Button clickedButton1, Button clickedButton2);
+    Task<bool> HandleTwoCardsClickedAsync(Button clickedCard1, Button clickedCard2);
 
     void ResetPoints();
 
