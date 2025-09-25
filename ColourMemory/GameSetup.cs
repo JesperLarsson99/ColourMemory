@@ -15,7 +15,7 @@ public static class GameSetup
 
     public static List<Color> SetupCardColors()
     {
-        var randomGuid = new Guid().GetHashCode();
+        var randomGuid = Guid.NewGuid().GetHashCode();
         var random = new Random(randomGuid);
 
         var colors = new List<Color>()
